@@ -1,7 +1,7 @@
-from openpyxl import load_workbook
+import openpyxl
 from path_of_excel_files import VRP, BEGIN_DATE, AREA
 
-VRP = load_workbook(filename=VRP)
+VRP = openpyxl.load_workbook(filename=VRP)
 VRP_SHEET = VRP['Лист1']
 
 
@@ -28,19 +28,6 @@ def get_years():
     return begin_years
 
 
-def get_value_vrp(areas):
-    """
-    Срез значений по годам для одной области
-    :param area: область AREA
-    :return:  Название области, значения по годам
-    """
-    area_name = {}
-    years = get_years()
-    indicator_name = get_name_of_indicator()
-
-    print(area_name)
-
-
 def get_areas():
     """
     Получить все значения областей из списка
@@ -59,6 +46,27 @@ def get_areas():
         if 'округ' in cell.value:
             areas.append(cell.value)
     return areas
+
+
+def get_value_vrp(areas):
+    """
+    Срез значений по годам для одной области
+    :param area: область AREA
+    :return:  {ГОД :{Область:Значение}}
+    """
+    area_name = {}
+    years = get_years()
+    areas = get_areas()
+    indicator_name = get_name_of_indicator()
+
+    for row in VRP_SHEET.iter_rows(min_row=1, min_col=1, values_only=True):
+        for j in areas:
+            for i in row[1:]:
+                if i == '…' or isinstance(i, int) or isinstance(i, float):
+                    print(i,j)
+
+    return area_name
+
 
 if __name__ == '__main__':
     get_years()
