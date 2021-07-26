@@ -38,15 +38,6 @@ def get_value_vrp(areas):
     years = get_years()
     indicator_name = get_name_of_indicator()
 
-    for row in VRP_SHEET.iter_rows(min_row=1, min_col=1, values_only=True):
-        for area in areas:
-            if row[0] == area:
-                area_name[area] = {}
-                values = []
-                for val in row[1:]:
-                    values.append(val)
-                area_name[area] = dict(zip(years, values[len(years)+1:]))
-    res = {indicator_name: area_name}
     return res
 
 
