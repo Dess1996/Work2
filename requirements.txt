@@ -1,0 +1,5 @@
+certifi==2021.5.30
+et-xmlfile==1.1.0
+jdcal==1.4.1
+openpyexcel==2.5.14
+wincertstore==0.2

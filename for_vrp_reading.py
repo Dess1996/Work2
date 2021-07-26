@@ -38,7 +38,7 @@ def get_value_vrp(areas):
     years = get_years()
     indicator_name = get_name_of_indicator()
 
-    return res
+    print(area_name)
 
 
 def get_areas():
