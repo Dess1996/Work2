@@ -24,8 +24,8 @@ def get_years():
         headers.append(str(cell.value))
     headers = [char.replace("г.", "") for char in headers]
     headers = list(map(int, headers[1::]))
-    begin_years = [year for year in headers if year > BEGIN_DATE]
-    return begin_years
+    #    begin_years = [year for year in headers if year > BEGIN_DATE]
+    return headers
 
 
 def get_areas():
@@ -58,14 +58,16 @@ def get_value_vrp(areas):
     years = get_years()
     areas = get_areas()
     indicator_name = get_name_of_indicator()
-
+    values = []
     for row in VRP_SHEET.iter_rows(min_row=1, min_col=1, values_only=True):
-        for j in areas:
-            for i in row[1:]:
-                if i == '…' or isinstance(i, int) or isinstance(i, float):
-                    print(i,j)
+        for val in row[1:]:
+            if isinstance(val, float) or isinstance(val, int) or val == '…':
+                values.append(val)
+    for year in years:
+        for area in areas:
+            for value in values:
+                print(year,area,value)
 
-    return area_name
 
 
 if __name__ == '__main__':
