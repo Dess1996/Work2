@@ -45,6 +45,10 @@ def get_areas():
             areas.append(cell.value)
         if 'округ' in cell.value:
             areas.append(cell.value)
+        if 'г.' in cell.value:
+            areas.append(cell.value)
+        if 'край' in cell.value:
+            areas.append(cell.value)
     return areas
 
 
@@ -59,16 +63,21 @@ def get_value_vrp(areas):
     areas = get_areas()
     indicator_name = get_name_of_indicator()
     values = []
-    for row in VRP_SHEET.iter_rows(min_row=1, min_col=1, values_only=True):
+    for row in VRP_SHEET.iter_cols(min_row=1, min_col=1, values_only=True):
         for val in row[1:]:
-            if isinstance(val, float) or isinstance(val, int) or val == '…':
-                for year in years:
-                    area_name[year] = {}
-                    for area in areas:
-                        area_name[year][area] = val
-    print(area_name)
+            if isinstance(val, float) or isinstance(val, int):
+                values.append(val)
+    for year in years:
+        area_name[year] = {}
+        for area in areas:
+            for value in values:
+                area_name[year][area] = value
+                values.remove(value)  # была запара в этих строчках
+                break
+    return area_name
 
 
 if __name__ == '__main__':
-    get_years()
+    #    get_years()
     print(get_value_vrp(areas=AREA))
+#    print(get_areas())
