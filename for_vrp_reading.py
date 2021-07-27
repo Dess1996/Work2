@@ -62,12 +62,10 @@ def get_value_vrp(areas):
     for row in VRP_SHEET.iter_rows(min_row=1, min_col=1, values_only=True):
         for val in row[1:]:
             if isinstance(val, float) or isinstance(val, int) or val == '…':
-                values.append(val)
-    for year in years:
-        area_name[year] = {}
-        for area in areas:
-            for value in values:
-                area_name[year][area] = value
+                for year in years:
+                    area_name[year] = {}
+                    for area in areas:
+                        area_name[year][area] = val
     print(area_name)
 
 
