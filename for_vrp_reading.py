@@ -64,10 +64,11 @@ def get_value_vrp(areas):
             if isinstance(val, float) or isinstance(val, int) or val == '…':
                 values.append(val)
     for year in years:
+        area_name[year] = {}
         for area in areas:
             for value in values:
-                print(year,area,value)
-
+                area_name[year][area] = value
+    print(area_name)
 
 
 if __name__ == '__main__':
